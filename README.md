@@ -4,9 +4,8 @@
 
 [![Python Template for IDS706](https://github.com/pb0104/IDS706/actions/workflows/main.yml/badge.svg)](https://github.com/pb0104/IDS706/actions/workflows/main.yml)
 
-# Hello Python
 
-This repository contains Python functions demonstrating basic greetings, addition, and a self-introduction. 
+This repository contains Python functions demonstrating basic greetings and addition.
 ---
 
 ## Files
