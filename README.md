@@ -47,12 +47,12 @@ The project includes unit tests in `test_hello.py`:
 
 1. **`test_say_hello()`**
    - Verifies that `say_hello(name)` returns the correct greeting message.  
-   - Tests multiple names (e.g., `"Kedar"`, `"Sam"`).  
+   - Tests multiple names (e.g., `"Pranshul"`, `"Sam"`).  
    - Tests an edge case where the name is an empty string.
 
 2. **`test_add()`**
    - Checks that `add(a, b)` correctly computes the sum of two numbers.  
-   - Includes edge cases such as very large numbers, negative numbers, and zero.
+   - Includes edge cases such as large numbers, negative numbers, and zero.
 
 ---
 
