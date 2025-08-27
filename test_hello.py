@@ -6,8 +6,8 @@ from hello import say_hello, add
 
 def test_say_hello():
     assert (
-        say_hello("Annie")
-        == "Hello, Annie, welcome to Data Engineering Systems (IDS 706)!"
+        say_hello("Pranshul")
+        == "Hello, Pranshul, welcome to Data Engineering Systems (IDS 706)!"
     )
     assert (
         say_hello("Sam") == "Hello, Sam, welcome to Data Engineering Systems (IDS 706)!"
