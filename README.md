@@ -1,155 +1,126 @@
 
 
-## Create your first project for Data Engineering Systems (IDS 706)
+# IDS-706-DataEngineering
 
-## Two approaches:
+[![Python Template for IDS706](https://github.com/pb0104/IDS706/actions/workflows/main.yml/badge.svg)](https://github.com/pb0104/IDS706/actions/workflows/main.yml)
 
-#### GitHub Repo Python Template (Local Setup Workflow)
+# Hello Python
 
-- Clone/Start the repository locally or use GitHub Codespaces without a container.
-- Set up a Python virtual environment (optional) and install dependencies using either pip install -r requirements.txt or make install.
+This repository contains Python functions demonstrating basic greetings, addition, and a self-introduction. 
+---
 
-#### Cloud-based Containerized Setup Workflow (With Dev Container)
+## Files
 
-- Create a GitHub repository.
-- Launch a Codespace from the repository.
-- Add a Dev Container configuration using VS Code.
-- Rebuild the container to apply changes.
+- `hello.py` – Contains the following functions:
+  - `say_hello(name: str) -> str`  
+    Returns a greeting message for the name provided.
+  - `add(a: int, b: int) -> int`  
+    Returns the sum of two numbers.
 
-Once your environment is ready, the following steps are common to both approaches:
+---
 
-- Create project files: Makefile, XX.py, test_XX.py, and requirements.txt.
-- Write your Python code and tests in the appropriate files.
-- Run Makefile commands as needed: make install, make test, make format, make lint, make clean.
-- Commit and push your changes to GitHub.
-- Enable GitHub Actions for automation/Continuous Integration.
+## Usage
 
-## Create a new GitHub Repository
-1. Go to [GitHub](https://github.com) and create a new repository named e.g., `IDS706_python_template`.      
-   - Make sure to select "Public" or "Private" based on your preference.
-   - Optionally, add a description.  
-2. enable the "Add a README file" option.
-3. Click on "Create repository".
-4. Click codespaces and then "Create codespace on main".
-
-## Create new files in the repository (using the terminal or manually)
-```bash
-touch Makefile
-touch hello.py
-touch test_hello.py
-touch requirements.txt
-```
-
-## Setup Python Environment (if you're not using a Dev Container)
-If you're working outside of a dev container, you can manually create and activate a virtual environment. If you do so, for consistency, it's recommended to name the environment the same as your repository.
+Run the script directly:
 
 ```bash
-python3 -m venv ~/.IDS706_python_template
-source ~/.IDS706_python_template/bin/activate
+python hello.py
 ```
 
+## Running Tests and Linting
 
-## Create a Makefile
-```makefile
-install:
-	pip install --upgrade pip &&\
-		pip install -r requirements.txt
+You can use the provided **Makefile** to quickly install dependencies, format code, check style, run tests, and clean up temporary files.
 
-format:
-	black *.py
+### Makefile Commands
 
-lint:
-	flake8 hello.py
+- `make install` – Installs/updates Python packages listed in `requirements.txt`.  
+- `make format` – Formats all Python files using `black`.  
+- `make lint` – Runs `flake8` on `hello.py` to check for PEP 8 compliance.  
+- `make test` – Runs all unit tests using `pytest` with coverage report.  
+- `make clean` – Removes temporary files such as `__pycache__`, `.pytest_cache`, and coverage reports.  
+- `make all` – Runs all of the above in sequence: install, format, lint, and test.
 
-test:
-	python -m pytest -vv --cov=hello test_hello.py
+---
 
-clean:
-    rm -rf __pycache__ .pytest_cache .coverage
+### Test Cases Explanation
 
-all: install format lint test
+The project includes unit tests in `test_hello.py`:
 
-```
-## Create a requirements.txt file
-```text
-pylint
-flake8
-pytest
-click
-black
-pytest-cov
-```
+1. **`test_say_hello()`**
+   - Verifies that `say_hello(name)` returns the correct greeting message.  
+   - Tests multiple names (e.g., `"Kedar"`, `"Sam"`).  
+   - Tests an edge case where the name is an empty string.
 
-## VS Code Dev Containers (Suggested)
-Open a sample in a container by pressing shift+command+P, then select `Dev Containers: Add Development Container Configuration Files...`. Choose the Python 3.11 template, and it will create the necessary files for you.
+2. **`test_add()`**
+   - Checks that `add(a, b)` correctly computes the sum of two numbers.  
+   - Includes edge cases such as very large numbers, negative numbers, and zero.
 
-#### Rebuild or update your container
-after you make changes to your container, such as installing a packages, you'll rebuild your container for your changes to take effect. by pressing shift+command+P, then select `Dev Containers: Rebuild Container` or `Codespaces: Rebuild Container` command so the modifications are picked up.  
+---
 
+### How to Run
 
-## Run the Makefile (required if you do not use Dev Containers)
-```bash 
+Use the Makefile to run all commands:
+
+```bash
+# Install dependencies
 make install
-```
 
-
-## Create a simple Python script
-```python
-def say_hello(name: str) -> str:
-    """Return a greeting message to students in the IDS class."""
-    return f"Hello, {name}, welcome to Data Engineering Systems (IDS 706)!"
-
-
-def add(a: int, b: int) -> int:
-    """Return the sum of two numbers."""
-    return a + b
-```
-
-## Create a test file
-```python
-from hello import say_hello, add
-
-def test_say_hello():
-    assert (
-        say_hello("Annie")
-        == "Hello, Annie, welcome to Data Engineering Systems (IDS 706)!"
-    )
-
-def test_add():
-    assert add(2, 3) == 5
-```
-
-## Run the tests
-```bash 
-make test
-``` 
-## Format the code
-```bash 
+# Format code
 make format
-```
-## Lint the code
-```bash
+
+# Check code style
 make lint
-```
-## Clean up the environment
-```bash
+
+# Run tests
+make test
+
+# Clean temporary files
 make clean
+
+# Run everything
+make all
 ```
-## Commit and push your changes via commands or User Interface
-```bash
-git add .
-git commit -m "Initial commit with Python template setup"   
-git push origin main
-``` 
-## View your repository
 
-## Enable GitHub Actions
+## Development Environment (Dev Container)
 
-1. Go to your repository on GitHub.
-2. Click on the "Actions" tab.
-3. Click on "New workflow".
-4. Select "Set up a workflow yourself".
-5. Replace the content with the following YAML configuration:
+This project includes a **Dev Container** configuration using VS Code’s Remote - Containers extension. A dev container is a Docker-based development environment that ensures the project runs with consistent dependencies and tools, regardless of the host machine.
+
+### Key Points
+
+- The container uses the image:
+  ```bash
+  mcr.microsoft.com/devcontainers/python:1-3.12-bullseye
+  ```
+
+  which comes with Python 3.12 and a Debian-based environment. Optional features can be added via the "features" property in devcontainer.json. Ports from the container can be forwarded to the host using "forwardPorts" if needed.
+
+- Commands to set up the environment after the container is created can be added using "postCreateCommand", e.g.:
+  ```bash 
+  "postCreateCommand": "pip3 install --user -r requirements.txt"
+  ```
+
+  You can also configure VS Code tools or set the user with `"customizations"` or `"remoteUser"` properties.
+
+### Benefits
+
+- **Consistency:** All developers use the same Python version and dependencies.  
+- **Isolation:** The container is isolated from your local machine, preventing conflicts.  
+- **Reproducibility:** Ensures that the project runs the same on any machine that supports Docker.  
+- **Integration with VS Code:** You can develop inside the container as if it were local, with debugging, terminal, and extensions fully supported.
+
+### How to Use
+
+1. Install Docker and VS Code Remote - Containers extension.  
+2. Open the project folder in VS Code.  
+3. Click **Reopen in Container** when prompted, or open the Command Palette (`Ctrl+Shift+P`) → **Remote-Containers: Reopen in Container**.  
+4. The dev container will build and launch automatically, and your environment will be ready for development.
+
+
+## GitHub Actions CI Workflow
+
+This project includes a **GitHub Actions workflow** to automatically build, lint, and test the code whenever changes are pushed or a pull request is created. The workflow ensures code quality and reduces the chance of introducing errors.
+
+### Workflow File: `.github/workflows/python.yml`
 
 ```yaml
 name: Python Template for IDS706
@@ -174,39 +145,18 @@ jobs:
       run: flake8 hello.py
     - name: Run tests
       run: pytest --cov=hello
-
 ```
-6. Commit and push this file to your repository.
-7. GitHub Actions will run automatically on every push or pull request!
 
-## View the Actions tab 
+### What It Does
 
-1. Go to the "Actions" tab in your repository.
-2. You should see the workflow running.
-3. Click on the latest workflow run to see the details.
+- **Trigger:** The workflow runs automatically on every `push` or `pull_request`.  
+- **Environment:** Uses the latest Ubuntu runner (`ubuntu-latest`) for consistency.  
+- **Checkout:** Pulls the project repository using `actions/checkout`.  
+- **Python Setup:** Installs Python 3.11 using `actions/setup-python`.  
+- **Install Dependencies:** Updates `pip` and installs all packages listed in `requirements.txt`.  
+- **Linting:** Runs `flake8` on `hello.py` to ensure PEP 8 compliance.  
+- **Testing:** Runs `pytest` with coverage reporting on the `hello` module to verify all tests pass.  
+
+This workflow ensures that code pushed to GitHub is **tested, linted, and ready for deployment or further development**.
 
 
-## Congratulations!
-You have successfully created a Python template project for Data Engineering Systems (IDS 706) using GitHub, Codespaces, and GitHub Actions. You can now use this template for your future projects in the course.
-
-This template provides a structured way to set up a Python project with essential tools for development, testing, and continuous integration. It includes:
-- A `Makefile` for easy command execution.
-- A virtual environment setup for dependency management.
-- A devcontainer configuration for GitHub Codespaces
-- A simple Python script with functions.
-- Unit tests to ensure code correctness.
-- GitHub Actions for continuous integration to automate linting and testing.
-- Github Copilot for AI-assisted coding.
-
-## Additional Resources
-- [GitHub Documentation](https://docs.github.com/en)
-- [Python Virtual Environments](https://docs.python.org/3/tutorial/venv.html)
-- [Installing Python and conda](https://www.practicaldatascience.org/notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_python.html)
-- [Setting Up Visual Studio Code](https://www.practicaldatascience.org/notebooks/PDS_not_yet_in_coursera/00_setup_env/setup_vscode.html)
-- [GitHub Dev-Container Documentation](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/setting-up-your-python-project-for-codespaces)
-- [Makefile Documentation](https://www.gnu.org/software/make/manual/make.html)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-
-## Acknowledgments
-This template was created as part of the Data Engineering Systems (IDS 706) course to help students set up their projects efficiently using modern development practices.   
